@@ -1,0 +1,59 @@
+<div *ngIf="tournament != undefined && !tournament.isStarted">
+  <div>
+    <input type="button" value="Generate" (click)="generate()" />
+  </div>
+  <div>
+    <input type="button" value="Start" (click)="startTournament()" />
+  </div>
+  <div>
+    <input type="button" value="Delete" (click)="deleteTournament()" />
+  </div>
+  <div>
+    <form>
+      <input type="text" id="userName" />
+      <input type="submit" value="Add user" (click)="addUser()" />
+    </form>
+  </div>
+</div>
+<div>Users:</div>
+<div *ngFor="let ut of usersTournaments" id="user{{ut.user.id}}">
+  <a [routerLink]="['/user', ut.user.id]">{{ut.user.name}}</a>
+  <a *ngIf="tournament != undefined && !tournament.isStarted" (click)="removeUser(ut.user.id)">
+    <span class='glyphicon glyphicon-remove'></span>
+  </a>
+</div>
+<div id="tournamentGrid">
+  <template *ngFor="let ut of usersTournaments; let i = index" #game+i>
+  </template>
+</div>
+
+<div id="games" *ngIf="tournamentGames !== undefined">
+  <table>
+    <tr>
+      <td *ngFor="let curGamesCount of gamesCounts; let level = index">
+        <div *ngFor="let game of tournamentGames.slice(sumPrevGamesCount(level), sumPrevGamesCount(level) + curGamesCount)" style="margin: 10px">
+          <span>{{game.number}}:</span>
+          <div *ngFor="let user of game.users">
+            <span *ngIf="user === undefined">Empty</span>
+
+            <button *ngIf="user !== undefined && !game.isCompleted"
+                    (click)="setGameWinner(game, user.id)"
+                    type="button" class="ui primary button">
+              {{user.name}}
+            </button>
+
+            <span *ngIf="user !== undefined && game.isCompleted && user.id === game.winnerId">
+              {{user.name}}
+            </span>
+
+            <span *ngIf="user !== undefined && game.isCompleted && user.id !== game.winnerId"
+                  style="text-decoration: line-through">
+              {{user.name}}
+            </span>
+
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

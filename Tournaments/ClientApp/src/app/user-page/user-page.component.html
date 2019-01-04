@@ -1,0 +1,29 @@
+<div *ngIf="user != undefined">
+  <p>
+    {{user.name}}
+  </p>
+  <div *ngIf="manager.getUser().name === user.name">
+    <a [routerLink]='["/edit-user", user.id]'>Edit</a>
+  </div>
+  <div>
+    Organized tournaments
+    <div *ngFor="let tournament of organizerTournaments">
+      <a [routerLink]="['/tournaments', tournament.id]">{{tournament.name}}</a>
+    </div>
+    <div *ngIf="manager.getUser().id == user.id">
+      <a [routerLink]='["/create-tournament"]'>
+        <span class='glyphicon glyphicon-plus'></span> Create
+      </a>
+    </div>
+
+    <br>
+    <br>
+    <br>
+  </div>
+  <div>
+    Participated tournaments
+    <div *ngFor="let tournament of userTournaments">
+      <a [routerLink]="['/tournaments', tournament.id]">{{tournament.name}}</a>
+    </div>
+  </div>
+</div>

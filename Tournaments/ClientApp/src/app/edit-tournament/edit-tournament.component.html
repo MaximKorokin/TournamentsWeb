@@ -1,0 +1,39 @@
+<div *ngIf="tournament != undefined">
+  <div>
+    <label>Name:</label>
+    <input type="text" [(ngModel)]="tournament.name" />
+  </div>
+  <div>
+    <label>Type:</label>
+    <input type="text" list="types" [(ngModel)]="tournament.tournamentType.name" />
+    <datalist id="types">
+      <option *ngFor="let type of types">{{type.name}}</option>
+    </datalist>
+  </div>
+  <div>
+    <label>Discipline:</label>
+    <input type="text" list="disciplines" [(ngModel)]="tournament.discipline.name" />
+    <datalist id="disciplines">
+      <option *ngFor="let discipline of disciplines">{{discipline.name}}</option>
+    </datalist>
+  </div>
+  <div>
+    <label>Description:</label>
+    <input type="text" [(ngModel)]="tournament.description" />
+  </div>
+  <div>
+    <label>Members capacity:</label>
+    <input type="number" [(ngModel)]="tournament.membersCapacity" min="2" max="100" />
+  </div>
+  <div>
+    <label>Free entrance:</label>
+    <input type="checkbox" [(ngModel)]="tournament.isFreeEntrance" />
+  </div>
+  <div>
+    <label>Date:</label>
+    <input type="date" [value]="tournament.date | date:'yyyy-MM-dd'" (input)="tournament.date=parseDate($event.target.value)" />
+  </div>
+  <div>
+    <input type="button" value="Edit" (click)="edit()" />
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div>
+  All tournaments
+  <div>
+    <input type="text" [(ngModel)]="searchString" />
+    <input type="button" value="Search" (click)="this.search()" />
+  </div>
+  <div *ngFor="let item of tournaments">
+    <a [routerLink]="['/tournaments', item.id]">{{item.name}}</a>
+  </div>
+</div>

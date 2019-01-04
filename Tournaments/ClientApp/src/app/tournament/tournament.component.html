@@ -1,0 +1,42 @@
+<div id="tournamentName">
+  {{tournament != undefined ? tournament.name : ""}}
+</div>
+
+<div id="tournamentOrganizer" *ngIf="organizer != undefined">
+  <a [routerLink]="['/user', organizer.id]">{{organizer.name}}</a>
+</div>
+<div id="tournamentDescription" *ngIf="tournament != undefined">
+  {{tournament.description}}
+</div>
+<div *ngIf="tournament != undefined && !tournament.isCompleted && manager.isLoggedIn()">
+  <div *ngIf="tournament.organizer != undefined && manager.getUser().name == tournament.organizer; else userBlock">
+    <div *ngIf="!tournament.isStarted">
+      <a [routerLink]="['/edit-tournament', (tournament != undefined ? tournament.id : -1)]">Edit</a>
+    </div>
+    <div>
+      <a [routerLink]="['/manage-tournament', (tournament != undefined ? tournament.id : -1)]">Manage</a>
+    </div>
+  </div>
+  <ng-template #userBlock>
+    <div *ngIf="!tournament.isStarted && usersTournaments != undefined && !tournament.isCompleted && !tournament.isStarted && tournament.membersCapacity > usersTournaments.length; then joinLeaveBlock"></div>
+  </ng-template>
+  <ng-template #joinLeaveBlock>
+    <div *ngIf="hasUserCollision(); then joinBlock; else leaveBlock"></div>
+  </ng-template>
+  <ng-template #joinBlock>
+    <div *ngIf="tournament.isFreeEntrance">
+      <button (click)="joinTournament()">Join</button>
+    </div>
+  </ng-template>
+  <ng-template #leaveBlock>
+    <div>
+      <button (click)="leaveTournament()">Leave</button>
+    </div>
+  </ng-template>
+</div>
+<div>Users:</div>
+<div>
+  <div *ngFor="let ut of usersTournaments">
+    <a [routerLink]="['/user', ut.user.id]">{{ut.user.name}}</a>
+  </div>
+</div>

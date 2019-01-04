@@ -1,0 +1,19 @@
+<div>
+  <label>Name:</label>
+  <input type="text" [(ngModel)]="name" />
+</div>
+<div>
+  <label>Email:</label>
+  <input type="text" [(ngModel)]="email" />
+</div>
+<div>
+  <label>Password:</label>
+  <input type="password" [(ngModel)]="password1" />
+</div>
+<div>
+  <label>Repeat password:</label>
+  <input type="password" [(ngModel)]="password2" />
+</div>
+<div>
+  <input type="button" value="Sign up" (click)="signUp()" />
+</div>
