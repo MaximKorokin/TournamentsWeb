@@ -19,7 +19,6 @@ export class GlobalUserManager {
     if (this.language !== user.language) {
       this.http.get("./assets/locale/" + user.language + ".json").subscribe(data => {
         this.locale = data;
-        console.log(this.locale);
       });
     }
 

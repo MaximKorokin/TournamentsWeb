@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit {
       console.log("passwords are different");
       return;
     }
-    this.manager.setUser({id: 0, name: this.name, email: this.email, password: this.password1 });
+    this.manager.setUser({ id: 0, name: this.name, email: this.email, password: this.password1, language: "EN" });
     let user = this.manager.getUser();
     this.http.post<User>(this.url, user).subscribe(
       user => {
