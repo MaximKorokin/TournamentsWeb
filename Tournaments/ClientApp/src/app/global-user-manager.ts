@@ -1,7 +1,5 @@
 import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PlatformLocation } from '@angular/common';
-import { Local } from 'protractor/built/driverProviders';
 
 @Injectable()
 export class GlobalUserManager {
@@ -19,6 +17,7 @@ export class GlobalUserManager {
     if (this.language !== user.language) {
       this.http.get("./assets/locale/" + user.language + ".json").subscribe(data => {
         this.locale = data;
+        console.log(this.locale);
       });
     }
 
